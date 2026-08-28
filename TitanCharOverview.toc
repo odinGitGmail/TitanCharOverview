@@ -3,7 +3,8 @@
 ## Title-zhCN: |cff00BFFF角色总览|r
 ## Notes: 时光服角色总览与boss掉落清单。命令：/tco /tcoh
 ## Author: Extracted from BiaoGe RoleOverview
-## Version: 1.0.0
+## Version: @project-version@
+## X-Curse-Project-ID: 1670092
 ## SavedVariables: TitanCharOverview, TitanCharOverviewAccounts
 ## Bindings: Bindings.xml
 

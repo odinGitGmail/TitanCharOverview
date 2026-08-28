@@ -1,0 +1,6 @@
+﻿package-as: TitanCharOverview
+
+ignore:
+  - .github
+  - .gitignore
+  - .pkgmeta
