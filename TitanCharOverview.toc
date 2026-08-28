@@ -1,0 +1,34 @@
+## Interface: 38002
+## Title: TitanCharOverview
+## Title-zhCN: |cff00BFFF角色总览|r
+## Notes: 时光服角色总览与boss掉落清单。命令：/tco /tcoh
+## Author: Extracted from BiaoGe RoleOverview
+## Version: 1.0.0
+## SavedVariables: TitanCharOverview, TitanCharOverviewAccounts
+## Bindings: Bindings.xml
+
+Templates.xml
+Locales\zhCN.lua
+Libs\embeds.xml
+Core\DB\Init.lua
+Libs\EnchantData\Enchant.lua
+Core\Migrate.lua
+Core\DB\DB.lua
+Core\DB\DB_BossName.lua
+Core\DB\DB_Loot_Titan.lua
+Core\DB\Init2.lua
+Core\function1.lua
+Core\function2.lua
+Core\AccountSync.lua
+Core\Module\EquipViewer.lua
+Core\Module\RoleOverview_core.lua
+Core\Module\RoleOverview.lua
+Core\Module\RoleOverviewSort.lua
+Core\Module\bagSync.lua
+Core\Module\WishlistStubs.lua
+Core\Module\WishlistHope.lua
+Core\Module\WishlistFrame.lua
+Core\Module\WishlistAlerts.lua
+Core\Options.lua
+Core\Minimap.lua
+Core\Bootstrap.lua

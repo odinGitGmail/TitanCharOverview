@@ -1,0 +1,308 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<EditBox name="TCO_InputBoxScriptTemplate" enableMouse="true" virtual="true">
+		<Scripts>
+			<OnTabPressed function="EditBox_OnTabPressed"/>
+			<OnEscapePressed function="EditBox_ClearFocus"/>
+			<OnEditFocusLost function="EditBox_ClearHighlight"/>
+			<OnEditFocusGained function="EditBox_HighlightText"/>
+		</Scripts>
+	</EditBox>
+
+	<EditBox name="TCO_InputBoxVisualTemplate" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Right" file="interface/common/commonsearch">
+					<Size x="8" y="20"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="0" y="0"/>
+					</Anchors>
+					<TexCoords left="0" right="0.07" top=".338" bottom=".638"/>
+				</Texture>
+				<Texture parentKey="Left" file="interface/common/commonsearch">
+					<Size x="8" y="20"/>
+					<Anchors>
+						<Anchor point="LEFT" x="-5" y="0"/>
+					</Anchors>
+					<TexCoords left=".88" right=".95" top=".01" bottom=".31"/>
+				</Texture>
+				<Texture parentKey="Middle" file="interface/common/commonsearch">
+					<Size x="10" y="20"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Left" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeKey="$parent.Right" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.8" top=".01" bottom=".31"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<!-- <FontString inherits="ChatFontNormal"/> -->
+	</EditBox>
+
+	<!-- <EditBox name="TCO_InputBoxTemplate" inherits="TCO_InputBoxScriptTemplate, TCO_InputBoxVisualTemplate" virtual="true"> -->
+	<EditBox name="TCO_InputBoxTemplate" inherits="InputBoxScriptTemplate, InputBoxVisualTemplate" virtual="true">
+		<Scripts>
+			<OnLoad function="TCO_InputBoxTemplate_OnLoad"/>
+		</Scripts>
+	</EditBox>
+
+    <!-- 心愿格子专用：Classic 时光服下 InputBoxVisualTemplate 过深，改用 commonsearch 浅灰底 -->
+	<EditBox name="TCO_HopeInputBoxTemplate" inherits="TCO_InputBoxScriptTemplate, TCO_InputBoxVisualTemplate" virtual="true">
+		<Scripts>
+			<OnLoad function="TCO_InputBoxTemplate_OnLoad"/>
+		</Scripts>
+	</EditBox>
+
+	<EditBox name="TCO_InputBoxInstructionsTemplate" inherits="TCO_InputBoxTemplate" virtual="true">
+		<!--KeyValues>
+				Optional
+				<KeyValue key="disabledColor" value="GRAY_FONT_COLOR" type="global"/>
+				<KeyValue key="enabledColor" value="HIGHLIGHT_FONT_COLOR" type="global"/>
+			</KeyValues-->
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Instructions" justifyH="LEFT" justifyV="MIDDLE" inherits="GameFontDisableSmall" setAllPoints="true">
+					<Color r="0.35" g="0.35" b="0.35"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnTextChanged function="InputBoxInstructions_OnTextChanged"/>
+			<OnDisable function="InputBoxInstructions_OnDisable"/>
+			<OnEnable function="InputBoxInstructions_OnEnable"/>
+		</Scripts>
+		<FontString inherits="GameFontHighlightSmall"/>
+	</EditBox>
+
+	<EditBox name="TCO_SearchBoxTemplate" inherits="TCO_InputBoxInstructionsTemplate" autoFocus="false" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentSearchIcon" file="Interface\Common\UI-Searchbox-Icon" parentKey="searchIcon">
+					<Size x="14" y="14"/>
+					<Anchors>
+						<Anchor point="LEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentClearButton" parentKey="clearButton" hidden="true">
+				<Size x="17" y="17"/>
+				<Anchors>
+					<Anchor point="RIGHT" x="-3" y="0"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture file="Interface\FriendsFrame\ClearBroadcastIcon" alpha="0.5" parentKey="texture">
+							<Size>
+								<AbsDimension x="17" y="17"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>
+							self.texture:SetAlpha(1.0);
+					</OnEnter>
+					<OnLeave>
+							self.texture:SetAlpha(0.5);
+					</OnLeave>
+					<OnMouseDown>
+							if self:IsEnabled() then
+								self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1);
+							end
+					</OnMouseDown>
+					<OnMouseUp>
+							self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+					</OnMouseUp>
+					<OnClick function="SearchBoxTemplateClearButton_OnClick"/>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="SearchBoxTemplate_OnLoad"/>
+			<OnEscapePressed function="EditBox_ClearFocus"/>
+			<OnEnterPressed function="EditBox_ClearFocus"/>
+			<OnEditFocusLost function="SearchBoxTemplate_OnEditFocusLost"/>
+			<OnEditFocusGained function="SearchBoxTemplate_OnEditFocusGained"/>
+			<OnTextChanged function="SearchBoxTemplate_OnTextChanged"/>
+		</Scripts>
+	</EditBox>
+
+	<Slider name="TCO_ModernScrollBarTemplate" orientation="VERTICAL" enableMouse="true" virtual="true">
+		<Size x="14" y="100"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Track" file="Interface\Buttons\WHITE8X8">
+					<Size x="4" y="1"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-2"/>
+						<Anchor point="BOTTOM" x="0" y="2"/>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.35"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<ThumbTexture parentKey="Thumb" file="Interface\Buttons\WHITE8X8" alpha="0">
+			<Size x="8" y="24"/>
+		</ThumbTexture>
+		<Frames>
+			<Button parentKey="TrackButton" enableMouse="true" setAllPoints="true">
+				<Scripts>
+					<OnLoad function="TCO_ModernScrollTrackButton_OnLoad"/>
+					<OnMouseDown function="TCO_ModernScrollTrackButton_OnMouseDown"/>
+					<OnMouseWheel function="TCO_ModernScrollTrackButton_OnMouseWheel"/>
+				</Scripts>
+			</Button>
+			<Button parentKey="ThumbButton" enableMouse="true">
+				<Size x="14" y="24"/>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="Top" file="Interface\Buttons\WHITE8X8">
+							<Size x="8" y="4"/>
+							<Anchors>
+								<Anchor point="TOP"/>
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Middle" file="Interface\Buttons\WHITE8X8">
+							<Size x="8" y="1"/>
+							<Anchors>
+								<Anchor point="TOP" x="0" y="-4"/>
+								<Anchor point="BOTTOM" x="0" y="4"/>
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Bottom" file="Interface\Buttons\WHITE8X8">
+							<Size x="8" y="4"/>
+							<Anchors>
+								<Anchor point="BOTTOM"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad function="TCO_ModernScrollThumbButton_OnLoad"/>
+					<OnEnter function="TCO_ModernScrollThumbButton_OnEnter"/>
+					<OnLeave function="TCO_ModernScrollThumbButton_OnLeave"/>
+					<OnMouseDown function="TCO_ModernScrollThumbButton_OnMouseDown"/>
+					<OnMouseUp function="TCO_ModernScrollThumbButton_OnMouseUp"/>
+					<OnSizeChanged function="TCO_ModernScrollThumbButton_UpdateShape"/>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="TCO_ModernScrollBarTemplate_OnLoad"/>
+			<OnValueChanged function="TCO_ModernScrollBarTemplate_OnValueChanged"/>
+			<OnMouseWheel function="TCO_ModernScrollBarTemplate_OnMouseWheel"/>
+			<OnEnter function="TCO_ModernScrollBarTemplate_OnEnter"/>
+			<OnLeave function="TCO_ModernScrollBarTemplate_OnLeave"/>
+		</Scripts>
+	</Slider>
+
+	<ScrollFrame name="TCO_ModernScrollFrameTemplate" enableMouse="true" virtual="true">
+		<Frames>
+			<Slider parentKey="ScrollBar" inherits="TCO_ModernScrollBarTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="6" y="0"/>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="8" y="0"/>
+				</Anchors>
+			</Slider>
+		</Frames>
+		<Scripts>
+			<OnLoad function="TCO_ModernScrollFrameTemplate_OnLoad"/>
+			<OnScrollRangeChanged function="TCO_ModernScrollFrameTemplate_OnScrollRangeChanged"/>
+			<OnVerticalScroll function="TCO_ModernScrollFrameTemplate_OnVerticalScroll"/>
+			<OnMouseWheel function="TCO_ModernScrollFrameTemplate_OnMouseWheel"/>
+			<OnSizeChanged function="TCO_ModernScrollFrameTemplate_Update"/>
+			<OnShow function="TCO_ModernScrollFrameTemplate_Update"/>
+		</Scripts>
+	</ScrollFrame>
+
+	<Slider name="TCO_ModernHorizontalScrollBarTemplate" orientation="HORIZONTAL" enableMouse="true" virtual="true">
+		<Size x="100" y="14"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Track" file="Interface\Buttons\WHITE8X8">
+					<Size x="1" y="4"/>
+					<Anchors>
+						<Anchor point="LEFT" x="2" y="0"/>
+						<Anchor point="RIGHT" x="-2" y="0"/>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.35"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<ThumbTexture parentKey="Thumb" file="Interface\Buttons\WHITE8X8" alpha="0">
+			<Size x="24" y="8"/>
+		</ThumbTexture>
+		<Frames>
+			<Button parentKey="TrackButton" enableMouse="true" setAllPoints="true">
+				<Scripts>
+					<OnLoad function="TCO_ModernHorizontalScrollTrackButton_OnLoad"/>
+					<OnMouseDown function="TCO_ModernHorizontalScrollTrackButton_OnMouseDown"/>
+					<OnMouseWheel function="TCO_ModernHorizontalScrollTrackButton_OnMouseWheel"/>
+				</Scripts>
+			</Button>
+			<Button parentKey="ThumbButton" enableMouse="true">
+				<Size x="24" y="14"/>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture parentKey="Left" file="Interface\Buttons\WHITE8X8">
+							<Size x="4" y="8"/>
+							<Anchors>
+								<Anchor point="LEFT"/>
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Middle" file="Interface\Buttons\WHITE8X8">
+							<Size x="1" y="8"/>
+							<Anchors>
+								<Anchor point="LEFT" x="4" y="0"/>
+								<Anchor point="RIGHT" x="-4" y="0"/>
+							</Anchors>
+						</Texture>
+						<Texture parentKey="Right" file="Interface\Buttons\WHITE8X8">
+							<Size x="4" y="8"/>
+							<Anchors>
+								<Anchor point="RIGHT"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad function="TCO_ModernHorizontalScrollThumbButton_OnLoad"/>
+					<OnEnter function="TCO_ModernHorizontalScrollThumbButton_OnEnter"/>
+					<OnLeave function="TCO_ModernHorizontalScrollThumbButton_OnLeave"/>
+					<OnMouseDown function="TCO_ModernHorizontalScrollThumbButton_OnMouseDown"/>
+					<OnMouseUp function="TCO_ModernHorizontalScrollThumbButton_OnMouseUp"/>
+					<OnSizeChanged function="TCO_ModernHorizontalScrollThumbButton_UpdateShape"/>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="TCO_ModernHorizontalScrollBarTemplate_OnLoad"/>
+			<OnValueChanged function="TCO_ModernHorizontalScrollBarTemplate_OnValueChanged"/>
+			<OnMouseWheel function="TCO_ModernHorizontalScrollBarTemplate_OnMouseWheel"/>
+			<OnSizeChanged function="TCO_ModernHorizontalScrollBarTemplate_OnSizeChanged"/>
+		</Scripts>
+	</Slider>
+
+	<ScrollFrame name="TCO_ModernHorizontalScrollFrameTemplate" enableMouse="true" virtual="true">
+		<Frames>
+			<Slider parentKey="ScrollBar" inherits="TCO_ModernHorizontalScrollBarTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+					<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="-6"/>
+				</Anchors>
+			</Slider>
+		</Frames>
+		<Scripts>
+			<OnLoad function="TCO_ModernHorizontalScrollFrameTemplate_OnLoad"/>
+			<OnScrollRangeChanged function="TCO_ModernHorizontalScrollFrameTemplate_OnScrollRangeChanged"/>
+			<OnHorizontalScroll function="TCO_ModernHorizontalScrollFrameTemplate_OnHorizontalScroll"/>
+			<OnMouseWheel function="TCO_ModernHorizontalScrollFrameTemplate_OnMouseWheel"/>
+			<OnSizeChanged function="TCO_ModernHorizontalScrollFrameTemplate_Update"/>
+			<OnShow function="TCO_ModernHorizontalScrollFrameTemplate_Update"/>
+		</Scripts>
+	</ScrollFrame>
+</Ui>

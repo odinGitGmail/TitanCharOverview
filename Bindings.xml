@@ -1,0 +1,7 @@
+<Bindings>
+    <Binding name="RoleOverview" category="ADDONS" header="TITANCHAROVERVIEW">
+        if BG and BG.SetFBCD then
+            BG.SetFBCD(nil, nil, true)
+        end
+    </Binding>
+</Bindings>
